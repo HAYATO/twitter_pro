@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+	<title>もっと読み込む</title>
+	 <script src="http://code.jquery.com/jquery-2.0.2.js"></script>
+</head>
+	<body>
+	<h1>もっと読み込む</h1>
+	<ul id="tweets">
+	</ul>
+	<p id="loading" style="display:none;">loading・・・</p>
+	<input type="button" id="more" onclick="more();" value="次の20件">
+	<script>
+		var page = 1;
+
+		function more(){
+			$("#loading").show();
+			$.post
+			(
+				'more.php',//リクエスト送信するirl
+				{page: page},//サーバーへ送信するデータ
+				function(rs)//リクエストが成功した時に実行する関数を指定
+				{
+					$("#loading").hide();
+					//$("#tweets").append(rs);
+					$(rs).appendTo("#tweets").hide().fadeIn(800);
+				}
+			);
+			page ++;
+		}
+
+		$(function(){
+			more();
+			// $.post('more.php',{
+			// },function(rs){
+			// 	$("#tweets").append(rs);
+			// });
+		});
+	</script>
+	</body>
+</html>
